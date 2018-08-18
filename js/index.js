@@ -29,7 +29,9 @@ function listFollowing() {
   steem.api.getFollowing(searchname, 0, null, 1000, function(err, result) {
     $('.collection').empty();
     for (var i = 0; i < result.length; i++) {
-      $('.collection').append("<li class='collection-item'> <div><a href='https://steemit.com/@" + result[i].following + "'>" + result[i].following + "</a><a href='#!' class='secondary-content' onClick='unfollow(\"" + result[i].following + "\")'><i class='material-icons'>clear</i></a></div> </li>");
+      if (result[i].what.length >= 0) {
+        $('.collection').append("<li class='collection-item'> <div><a href='https://steemit.com/@" + result[i].following + "'>" + result[i].following + "</a><a href='#!' class='secondary-content' onClick='unfollow(\"" + result[i].following + "\")'><i class='material-icons'>clear</i></a></div> </li>");
+      }
     }
   });
 }
