@@ -16,7 +16,6 @@
     <div class="nav-wrapper">
       <a href="#" class="brand-logo center">Steem Unfollow</a>
       <a href="#!" class="modal-close waves-effect waves-green btn blue" onclick="sign_show()" style="font-family:system-ui; text-transform:none;">Sign in</a>
-
     </div>
 
   </nav>
@@ -49,6 +48,7 @@
       <p class="flow-text red-text">Logged in as: @<span id="usr_name"></span></p>
       <input placeholder="Your Steem name in lower case" id="search_name" type="text" class="validate center">
       <a class="waves-effect waves-light btn" style="text-transform:none;" id="searchbtn">Search</a>
+      <a class="waves-effect waves-light btn-large red lighten-2" style="text-transform:none;" id="searchbtn" onclick="unfollowAll()">Unfollow All</a>
     </div>
   </div>
     <p class="grey lighten-1 white-text center">All the information about username and password or any other will only store on you pc for your comfort.</p>
@@ -57,7 +57,7 @@
 
 
     <div class="row">
-      <p class="flow-text center red-text"><span id="usr_following"></span> Following</p>
+      <p class="flow-text center red-text"><span id="usr_following"></span> Following <span id="count"></span> people on steemit</p>
       <ul class="collection">
       </ul>
     </div>

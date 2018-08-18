@@ -14,6 +14,8 @@ $(document).ready(function() {
   listFollowing();
 
 });
+
+
 var _searchname;
 var searchname;
 $('#searchbtn').click(function() {
@@ -34,16 +36,97 @@ $('#searchbtn').click(function() {
 
 function listFollowing() {
   steem.api.getFollowing(localStorage.getItem('searchName'), 0, null, 1000, function(err, result) {
+    var count = 0;
     $('#usr_following').html(localStorage.getItem('searchName'));
     $('.collection').empty();
+
     for (var i = 0; i < result.length; i++) {
       if (result[i].what.length >= 1) {
         $('.collection').append("<li class='collection-item'> <div><a href='https://steemit.com/@" + result[i].following + "'>" + result[i].following + "</a><a href='#!' class='secondary-content' onClick='unfollow(\"" + result[i].following + "\")'><i class='material-icons'>clear</i></a></div> </li>");
+        count++;
       }
     }
+    $('#count').html(count);
   });
 }
 
+
+function unfollowAll() {
+  //Your JavaScript Code Here...
+  if (localStorage.getItem("voter") === null || localStorage.getItem("pass") === null || localStorage.getItem("voter") === "" || localStorage.getItem("pass") === "") {
+    $('.modal').modal('open');
+  } else if (localStorage.getItem("searchName") !== localStorage.getItem("voter")) {
+    M.toast({
+      html: 'Enter the username in search box that you logged in with and again hit search'
+    })
+  } else {
+    unfollowAllCode();
+  }
+}
+
+
+function unfollowAllCode() {
+  console.log("UnfollowAllCode With Loop");
+  var follower = localStorage.getItem("voter"); // Your username
+  steem.api.getFollowing(localStorage.getItem('searchName'), 0, null, 1000, function(err, result) {
+    var name;
+    var i = 0;
+    loopUnfollow();
+
+    function loopUnfollow() {
+      console.log("Loop");
+
+      if (i < result.length) {
+        if (result[i].what.length >= 1) {
+          var following = result[i].following; // User to unfollow
+          name = following;
+          var json = JSON.stringify(
+            ['follow', {
+              follower: follower,
+              following: following,
+              what: []
+            }]
+          );
+          var postingWif = steem.auth.toWif(localStorage.getItem("voter"), localStorage.getItem("pass"), 'posting');
+
+          console.log("inside if result.length with what");
+          steem.broadcast.customJson(
+            postingWif, [], // Required_auths
+            [follower], // Required Posting Auths
+            'follow', // Id
+            json, //
+            function(err, result) {
+              console.log("inside if result.length with what2");
+              console.log(err, result);
+              if (err) {
+                M.toast({
+                  html: 'Error! Make sure you entered right username and passowrd and retry again or an operation is already in progress.'
+                })
+              }
+              if (!err) {
+                M.toast({
+                  html: 'Unfollowed!- ' + name
+                })
+                listFollowing();
+                console.log('Line Created -----');
+                i++;
+                loopUnfollow();
+              }
+            });
+        } else {
+          i++;
+          loopUnfollow();
+
+        }
+      } //if loop body ends
+
+
+    }
+
+
+
+  });
+}
 
 function unfollow(name) {
   //Your JavaScript Code Here...
