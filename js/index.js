@@ -11,6 +11,7 @@ $(document).ready(function() {
   }
 
   $('#usr_name').html(localStorage.getItem("voter"));
+  listFollowing();
 
 });
 var _searchname;
@@ -32,8 +33,8 @@ $('#searchbtn').click(function() {
 
 
 function listFollowing() {
-  steem.api.getFollowing(searchname, 0, null, 1000, function(err, result) {
-    $('#usr_following').html(searchname);
+  steem.api.getFollowing(localStorage.getItem('searchName'), 0, null, 1000, function(err, result) {
+    $('#usr_following').html(localStorage.getItem('searchName'));
     $('.collection').empty();
     for (var i = 0; i < result.length; i++) {
       if (result[i].what.length >= 1) {
