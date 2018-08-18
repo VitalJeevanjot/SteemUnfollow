@@ -15,8 +15,32 @@
   <nav>
     <div class="nav-wrapper">
       <a href="#" class="brand-logo center">Steem Unfollow</a>
+      <a href="#!" class="modal-close waves-effect waves-green btn blue" onclick="sign_show()" style="font-family:system-ui; text-transform:none;">Sign in</a>
     </div>
   </nav>
+<!-- Signed in as and warning that all data stay local -->
+
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Login With Steem Account</h4>
+      <label for="user_name">Username:</label>
+      <input placeholder="example_name_genievot" id="user_name" type="text" class="validate">
+
+      <label for="password">Password:</label>
+      <input placeholder="Password_Pxedfr4335453323sdsccdsq_hidden" id="password" type="text" class="validate">
+
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat" onClick="sign_in()" style="font-family:system-ui;">Signin</a>
+    </div>
+  </div>
+
+
+
+
+
 
   <div class="container">
     <div class="row center">
@@ -30,16 +54,17 @@
 
     <div class="row">
       <p class="flow-text center red-text">Following</p>
-
       <ul class="collection">
       </ul>
     </div>
   </div>
   <!--JavaScript at end of body for optimized loading-->
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
   <script type="text/javascript" src="js/materialize.min.js"></script>
   <script type="text/javascript" src="js/steem.min.js"></script>
-  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+
   <script type="text/javascript" src="js/index.js"></script>
+
 </body>
 
 </html>
