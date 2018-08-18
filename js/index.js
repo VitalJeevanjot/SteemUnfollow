@@ -10,10 +10,16 @@ $(document).ready(function() {
     signedin = true;
   }
 
+  $('#usr_name').html(localStorage.getItem("voter"));
+
 });
+var _searchname;
 var searchname;
 $('#searchbtn').click(function() {
-  searchname = $('#search_name').val();
+  _searchname = $('#search_name').val();
+  console.log(_searchname);
+  searchname = _searchname.replace(/ /g, "");
+  console.log(searchname);
   localStorage.setItem('searchName', searchname);
   if (searchname === null || searchname === "") {
     M.toast({
@@ -27,9 +33,10 @@ $('#searchbtn').click(function() {
 
 function listFollowing() {
   steem.api.getFollowing(searchname, 0, null, 1000, function(err, result) {
+    $('#usr_following').html(searchname);
     $('.collection').empty();
     for (var i = 0; i < result.length; i++) {
-      if (result[i].what.length >= 0) {
+      if (result[i].what.length >= 1) {
         $('.collection').append("<li class='collection-item'> <div><a href='https://steemit.com/@" + result[i].following + "'>" + result[i].following + "</a><a href='#!' class='secondary-content' onClick='unfollow(\"" + result[i].following + "\")'><i class='material-icons'>clear</i></a></div> </li>");
       }
     }
@@ -43,7 +50,7 @@ function unfollow(name) {
     $('.modal').modal('open');
   } else if (localStorage.getItem("searchName") !== localStorage.getItem("voter")) {
     M.toast({
-      html: 'Enter the right value in search box and again hit search'
+      html: 'Enter the username in search box that you logged in with and again hit search'
     })
   } else {
     var follower = localStorage.getItem("voter"); // Your username
@@ -86,6 +93,13 @@ function sign_show() {
 }
 
 function sign_in() {
-  localStorage.setItem("voter", $('#user_name').val());
-  localStorage.setItem("pass", $('#password').val());
+  var _voter = $('#user_name').val();
+  var voter = _voter.replace(/ /g, "");
+
+  var _pass = $('#password').val();
+  var pass = _pass.replace(/ /g, "");
+  localStorage.setItem("voter", voter);
+  localStorage.setItem("pass", pass);
+
+  $('#usr_name').html(localStorage.getItem("voter"));
 }

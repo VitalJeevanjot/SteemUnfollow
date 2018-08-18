@@ -16,9 +16,11 @@
     <div class="nav-wrapper">
       <a href="#" class="brand-logo center">Steem Unfollow</a>
       <a href="#!" class="modal-close waves-effect waves-green btn blue" onclick="sign_show()" style="font-family:system-ui; text-transform:none;">Sign in</a>
+
     </div>
+
   </nav>
-<!-- Signed in as and warning that all data stay local -->
+  <!-- Signed in as and warning that all data stay local -->
 
 
   <!-- Modal Structure -->
@@ -29,7 +31,7 @@
       <input placeholder="example_name_genievot" id="user_name" type="text" class="validate">
 
       <label for="password">Password:</label>
-      <input placeholder="Password_Pxedfr4335453323sdsccdsq_hidden" id="password" type="text" class="validate">
+      <input placeholder="Password_Pxedfr4335453323sdsccdsq_hidden" id="password" type="password" class="validate">
 
     </div>
     <div class="modal-footer">
@@ -44,7 +46,8 @@
 
   <div class="container">
     <div class="row center">
-      <input placeholder="Your Steem Name" id="search_name" type="text" class="validate center">
+      <p class="flow-text red-text">Logged in as: @<span id="usr_name"></span></p>
+      <input placeholder="Your Steem name in lower case" id="search_name" type="text" class="validate center">
       <a class="waves-effect waves-light btn" style="text-transform:none;" id="searchbtn">Search</a>
     </div>
   </div>
@@ -53,7 +56,7 @@
 
 
     <div class="row">
-      <p class="flow-text center red-text">Following</p>
+      <p class="flow-text center red-text"><span id="usr_following"></span> Following</p>
       <ul class="collection">
       </ul>
     </div>
